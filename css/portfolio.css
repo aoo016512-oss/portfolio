@@ -1,0 +1,717 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* index/about과 동일한 "덜 강한" 스냅감 */
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+    scroll-padding-top: 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    background-color: #000;
+    /* 요청: 그리드/별 등 효과 제거 (SUB_1~6만 배경으로 사용) */
+    background-image: none;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* 접근성/레이아웃 뼈대 유틸리티 (모바일 퍼스트 구조용) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    padding: 10px 12px;
+    background: #ffffff;
+    color: #000000;
+    z-index: 9999;
+}
+
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
+}
+
+.site-footer {
+    position: relative;
+    z-index: 5;
+    padding: 24px 16px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+}
+
+/* 공통 기본 스타일 */
+.website-image {
+    /* 기본(큰 화면): 기존 디자인 기준 */
+    position: absolute;
+    top: 138px;
+    left: 107px;
+    width: 852px;
+    height: 633px;
+    object-fit: cover;
+    z-index: 1002;
+}
+
+/* 모든 섹션의 블러 효과 제거됨 */
+
+/* 요청: 움직이는 별 효과 제거 */
+.background-effects {
+    display: none !important;
+}
+
+.star-3d {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(167, 139, 250, 0.9), rgba(139, 92, 246, 0.8), rgba(109, 40, 217, 0.7), rgba(0, 0, 0, 0.8));
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 30px rgba(139, 92, 246, 0.6));
+    box-shadow: 
+        inset -5px -5px 10px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 10px rgba(255, 255, 255, 0.3),
+        0 0 20px rgba(139, 92, 246, 0.4);
+    animation: float-star 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+    transform: perspective(500px) rotateX(20deg) translateZ(30px);
+}
+
+.star-3d-1 {
+    top: 18.7%;
+    left: 6.3%;
+    animation-duration: 8s;
+    width: 45px;
+    height: 45px;
+}
+
+.star-3d-2 {
+    top: 72.4%;
+    left: 88.9%;
+    animation-duration: 12s;
+    width: 35px;
+    height: 35px;
+}
+
+.star-3d-3 {
+    top: 43.6%;
+    left: 92.1%;
+    animation-duration: 15s;
+    width: 30px;
+    height: 30px;
+}
+
+.star-3d-4 {
+    top: 81.2%;
+    left: 11.7%;
+    animation-duration: 10s;
+    width: 40px;
+    height: 40px;
+}
+
+.star-3d-5 {
+    top: 33.8%;
+    left: 3.4%;
+    animation-duration: 18s;
+    width: 50px;
+    height: 50px;
+}
+
+@keyframes float-star {
+    0%, 100% {
+        transform: perspective(500px) rotateX(20deg) translateZ(30px) translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: perspective(500px) rotateX(20deg) translateZ(30px) translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: perspective(500px) rotateX(20deg) translateZ(30px) translateY(-30px) translateX(-5px);
+    }
+    75% {
+        transform: perspective(500px) rotateX(20deg) translateZ(30px) translateY(-15px) translateX(15px);
+    }
+}
+
+.neon-star {
+    position: absolute;
+    background-color: #000;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    box-shadow: 
+        0 0 10px rgba(139, 92, 246, 0.8),
+        0 0 20px rgba(139, 92, 246, 0.6),
+        0 0 30px rgba(139, 92, 246, 0.4),
+        inset 0 0 10px rgba(139, 92, 246, 0.3);
+    animation: neon-pulse 2s ease-in-out infinite;
+}
+
+.neon-star-1 {
+    top: 15%;
+    left: 5%;
+    width: 45px;
+    height: 45px;
+    animation-delay: 0s;
+}
+
+.neon-star-2 {
+    top: 60%;
+    left: 3%;
+    width: 38px;
+    height: 38px;
+    animation-delay: 0.4s;
+}
+
+.neon-star-3 {
+    top: 85%;
+    left: 7%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0.8s;
+}
+
+.neon-star-4 {
+    top: 20%;
+    left: 92%;
+    width: 50px;
+    height: 50px;
+    animation-delay: 0.2s;
+}
+
+.neon-star-5 {
+    top: 55%;
+    left: 94%;
+    width: 35px;
+    height: 35px;
+    animation-delay: 0.6s;
+}
+
+.neon-star-6 {
+    top: 80%;
+    left: 90%;
+    width: 42px;
+    height: 42px;
+    animation-delay: 1s;
+}
+
+@keyframes neon-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 10px rgba(139, 92, 246, 0.8),
+            0 0 20px rgba(139, 92, 246, 0.6),
+            0 0 30px rgba(139, 92, 246, 0.4),
+            inset 0 0 10px rgba(139, 92, 246, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 15px rgba(139, 92, 246, 1),
+            0 0 30px rgba(139, 92, 246, 0.8),
+            0 0 45px rgba(139, 92, 246, 0.6),
+            inset 0 0 15px rgba(139, 92, 246, 0.5);
+    }
+}
+
+section {
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+/* SUB_1~SUB_6를 각 섹션의 "진짜 배경"으로 사용
+   - 창모드/작은 화면에서도 "비율 유지 + 최대 크기"로 보이게 (잘림 없이) */
+.fullpage-section {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; /* 비율 유지 + 최대 크기(전체가 보이도록) */
+    background-color: #000;   /* 남는 여백은 검정으로 */
+}
+
+#section1 {
+    background-image: url("../images2/SUB_1.jpg");
+}
+#section2 {
+    background-image: url("../images2/SUB_2.jpg");
+}
+#section3 {
+    background-image: url("../images2/SUB_3.jpg");
+}
+#section4 {
+    background-image: url("../images2/SUB_4.jpg");
+}
+#section5 {
+    background-image: url("../images2/SUB_5.jpg");
+}
+#section6 {
+    background-image: url("../images2/SUB_6.jpg");
+}
+
+/* 반응형 핵심(창모드 포함):
+   1920 고정 좌표 기반 레이아웃은 요소별로 "줄이기"가 아니라
+   전체 캔버스를 비율로 스케일해야 밀림이 사라집니다. */
+:root {
+    --portfolio-scale: 1;
+}
+
+/* 섹션이 아니라 "캔버스 래퍼"를 스케일해야
+   섹션별 규칙 충돌 없이 창모드에서도 정확히 줄어듭니다. */
+.portfolio-canvas {
+    width: 1920px;
+    max-width: none;
+    margin: 0;
+    position: relative;
+    left: 50%;
+    /* 가운데 정렬 + 비율 스케일 (창 크기 따라 같이 줄어듦) */
+    transform: translateX(-50%) scale(var(--portfolio-scale));
+    transform-origin: top center;
+}
+
+.portfolio-canvas > section.fullpage-section {
+    width: 1920px;
+}
+
+.portfolio-red-square {
+    position: absolute;
+    top: 66%;
+    left: 73%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 238px;
+    background-color: #ffffff;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.portfolio-text {
+    font-family: 'NanumSquareRound', sans-serif;
+    font-size: 18px;
+    color: #000000;
+    text-align: justify;
+    line-height: 1.6;
+    width: 100%;
+    height: 115%;
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* 공통 기본 스타일 - 최소한만 */
+.portfolio-red-square-small {
+    position: absolute;
+    background-color: black;
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 15px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.portfolio-red-square-small:hover {
+    background-color: #6B46C1;
+}
+
+.portfolio-red-square-small:hover .portfolio-red-square-small-text {
+    color: #ffffff;
+}
+
+/* 섹션 1, 6: 버튼 2개 (작은 크기) */
+#section1 .portfolio-red-square-small,
+#section6 .portfolio-red-square-small {
+    width: 350px;
+    height: 53px;
+}
+
+/* 섹션 2~5: 버튼 1개 (큰 크기) */
+#section2 .portfolio-red-square-small,
+#section3 .portfolio-red-square-small,
+#section4 .portfolio-red-square-small,
+#section5 .portfolio-red-square-small {
+    width: 715px;
+    height: 53px;
+}
+
+/* 각 섹션별 박스 1 위치 설정 */
+#section1 .portfolio-box-1 {
+    bottom: 151px;
+    right: 535px;
+}
+
+#section2 .portfolio-box-1 {
+    bottom: 151px;
+    right: 169px;
+}
+
+#section3 .portfolio-box-1 {
+    bottom: 144px;
+    right: 171px;
+}
+
+#section4 .portfolio-box-1 {
+    bottom: 143px;
+    right: 176px;
+}
+
+#section5 .portfolio-box-1 {
+    bottom: 142px;
+    right: 171px;
+}
+
+#section6 .portfolio-box-1 {
+    bottom: 142px;
+    right: 539px;
+}
+
+/* 각 섹션별 박스 2 위치 설정 (section1, section6만 사용) */
+#section1 .portfolio-box-2 {
+    bottom: 151px;
+    right: 170px;
+}
+
+#section6 .portfolio-box-2 {
+    bottom: 142px;
+    right: 175px;
+}
+
+/* 공통 텍스트 기본 스타일 */
+.portfolio-red-square-small-text {
+    font-family: 'VCR_OSD_MONO_1.001', monospace;
+    font-size: 35px;
+    color: #ffffff;
+    white-space: nowrap;
+    position: relative;
+    top: -2px;
+    margin: 0;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+/* 섹션 1, 6: 버튼 2개 (작은 크기) - 텍스트 위치 */
+#section1 .portfolio-red-square-small-text {
+    left: 43px;
+}
+
+/* 섹션 6: 각 버튼별 텍스트 위치 개별 조절 */
+#section6 .portfolio-box-1 .portfolio-red-square-small-text {
+    left: 43px;
+}
+
+#section6 .portfolio-box-2 .portfolio-red-square-small-text {
+    left: 62px;
+}
+
+/* 섹션 2~5: 버튼 1개 (큰 크기) - 텍스트 위치 */
+#section2 .portfolio-red-square-small-text,
+#section3 .portfolio-red-square-small-text,
+#section4 .portfolio-red-square-small-text,
+#section5 .portfolio-red-square-small-text {
+    left: 408px;
+}
+
+/* (정리) SUB_* 배경을 section background로 전환했으므로 .bgc-image 스타일/애니메이션 제거 */
+
+.right-navigation-top {
+    position: fixed;
+    right: -3px;
+    top: 120px;
+    background-color: transparent;
+    padding: 20px 0 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.right-navigation-top .nav-item {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 38px;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    display: block;
+    border: 2px solid #8B5CF6;
+    font-size: 18px;
+}
+
+.right-navigation-top .nav-item:hover {
+    background-color: #8B5CF6;
+    border-color: #000000;
+}
+
+.right-navigation-center {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    padding: 20px 0 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.right-navigation-center .nav-item {
+    background-color: #8B5CF6;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    display: block;
+    font-size: 16px;
+}
+
+.right-navigation-center .nav-item:hover {
+    background-color: #000000;
+    box-shadow: 
+        0 0 5px rgba(167, 92, 250, 0.8),
+        0 0 8px rgba(167, 92, 250, 0.6),
+        0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    background-image: 
+        linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+        radial-gradient(circle, rgba(139, 92, 246, 0.6) 1px, transparent 1px),
+        radial-gradient(circle, rgba(167, 139, 250, 0.4) 0.5px, transparent 0.5px);
+    background-size: 
+        50px 50px,
+        50px 50px,
+        100px 100px,
+        50px 50px;
+    background-position: 
+        0 0,
+        0 0,
+        0 0,
+        25px 25px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    overflow: hidden;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-bar-container {
+    width: 300px;
+    height: 20px;
+    background-color: rgba(139, 92, 246, 0.2);
+    border: 2px solid #8B5CF6;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8B5CF6, #A78BFA);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+}
+
+.loading-text {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+}
+
+/* 모달 스타일 (반응형 & 모바일 대응) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* 모바일 safe-area 및 반응형 패딩 */
+    padding:
+        max(env(safe-area-inset-top, 0px), 2vh)
+        max(env(safe-area-inset-right, 0px), 3vw)
+        max(env(safe-area-inset-bottom, 0px), 2vh)
+        max(env(safe-area-inset-left, 0px), 3vw);
+    box-sizing: border-box;
+    overscroll-behavior: contain;
+    touch-action: none;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+body.modal-open {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+html.modal-open {
+    overflow: hidden !important;
+    overscroll-behavior: none;
+}
+
+.modal-container {
+    position: relative;
+    width: clamp(280px, 90vw, 1200px);
+    max-width: 100%;
+    max-height: min(90vh, 90dvh);
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior: contain;
+    touch-action: none;
+}
+
+/* 모달 콘텐츠 영역에만 스크롤 적용 (반응형 높이) */
+.modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: min(90vh, 90dvh);
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.modal-close {
+    position: absolute;
+    /* 이미지 우상단에 반응형 여백으로 고정 */
+    top: clamp(0.5rem, 1.5vh, 1rem);
+    right: clamp(0.5rem, 2vw, 1.2rem);
+    padding: clamp(0.15rem, 0.5vh, 0.3rem)
+             clamp(0.25rem, 0.8vw, 0.6rem);
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, text-shadow 0.2s ease;
+    mix-blend-mode: difference; /* 배경 밝기에 따라 자동 대비 */
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+    transform: scale(1.1);
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.9);
+    outline: none;
+}
+
+.modal-image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* 모달 스크롤바 숨김 (스크롤 기능은 유지) */
+.modal-content::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+/* Firefox 스크롤바 숨김 */
+.modal-content {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* (삭제) 작은 화면에서 스택으로 강제 전환하던 규칙:
+   고정 좌표 기반 디자인을 "진짜로 줄이는" 목적과 충돌해서 제거했습니다.
+   이제는 전체 캔버스를 scale로 줄여서(모바일/창모드 포함) 밀림 없이 동작합니다. */
